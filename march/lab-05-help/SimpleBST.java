@@ -2,7 +2,7 @@ public class SimpleBST extends Tree {
   SimpleBST(int num) {
     super(num);
   }
-  SimpleBST(int num, Tree left, Tree right) {
+  SimpleBST(int num, SimpleBST left, SimpleBST right) {
     super(num, left, right);
   }
   public boolean find(int num) {
@@ -17,16 +17,17 @@ public class SimpleBST extends Tree {
       }
     }
   }
-  public void insert(int num) {
+  public void insert(SimpleBST tree) {
+    int num = tree.key; 
     if (this.key == num) {
       System.out.println(num + " already in."); 
       return; 
     } else if (num < this.key) {
-      if (this.left == null) this.left = new SimpleBST(num); 
-      else ((SimpleBST)(this.left)).insert(num);
+      if (this.left == null) this.left = tree; 
+      else ((SimpleBST)(this.left)).insert(tree);
     } else {
-      if (this.right == null) this.right = new SimpleBST(num); 
-      else ((SimpleBST)(this.right)).insert(num);
+      if (this.right == null) this.right = tree; 
+      else ((SimpleBST)(this.right)).insert(tree);
     }
   }
   public static void main(String[] args) {
@@ -36,7 +37,7 @@ public class SimpleBST extends Tree {
     }
     SimpleBST b = new SimpleBST(50); 
     for (int i = 0; i < 20; i++) {
-       b.insert((int)(Math.random() * 100 + 1)); 
+       b.insert(new SimpleBST((int)(Math.random() * 100 + 1))); 
     }
     b.display(); 
   }
